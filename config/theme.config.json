@@ -1,0 +1,29 @@
+{
+  "colors": {
+    "light": {
+      "primary": "#FFD89B",
+      "secondary": "#87CEEB",
+      "accent": "#FFF4E0",
+      "text": "#2C3E50"
+    },
+    "dark": {
+      "primary": "#8B4C6B",
+      "secondary": "#2D2D44",
+      "accent": "#B85C7A",
+      "text": "#E8E8F0"
+    },
+    "neutral": {
+      "bg": "#FAFAF9",
+      "card": "#FFFFFF",
+      "border": "#E5E5E5"
+    }
+  },
+  "gradients": {
+    "light": "linear-gradient(135deg, #FFD89B 0%, #87CEEB 100%)",
+    "dark": "linear-gradient(135deg, #8B4C6B 0%, #2D2D44 100%)"
+  },
+  "metadata": {
+    "siteName": "光遇世界 - 原创角色展示",
+    "description": "基于光遇世界观的原创角色与故事展示网站"
+  }
+}

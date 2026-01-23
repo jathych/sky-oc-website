@@ -9,9 +9,11 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "mammoth": "^1.11.0",
     "next": "16.1.1",
     "react": "19.2.3",
-    "react-dom": "19.2.3"
+    "react-dom": "19.2.3",
+    "react-masonry-css": "^1.0.16"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
