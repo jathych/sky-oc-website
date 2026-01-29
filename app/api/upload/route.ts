@@ -10,6 +10,7 @@ export async function POST(request: NextRequest) {
   try {
     const formData = await request.formData();
     const file = formData.get('file') as File;
+    const uploadType = (formData.get('type') as string) || 'artworks';
 
     if (!file) {
       return NextResponse.json({ error: '未选择文件' }, { status: 400 });
@@ -40,7 +41,7 @@ export async function POST(request: NextRequest) {
     const filename = `${cleanName}_${timestamp}.${ext}`;
 
     // Ensure upload directory exists
-    const uploadDir = join(process.cwd(), 'public', 'images', 'artworks');
+    const uploadDir = join(process.cwd(), 'public', 'images', uploadType);
     if (!existsSync(uploadDir)) {
       await mkdir(uploadDir, { recursive: true });
     }
@@ -51,7 +52,7 @@ export async function POST(request: NextRequest) {
     await writeFile(filepath, buffer);
 
     // Return relative path for use in the application
-    const imagePath = `/images/artworks/${filename}`;
+    const imagePath = `/images/${uploadType}/${filename}`;
 
     return NextResponse.json({ path: imagePath });
   } catch (error) {

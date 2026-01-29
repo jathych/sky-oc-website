@@ -1,8 +1,34 @@
+'use client';
+
 import Link from "next/link";
 import Image from "next/image";
-import { characters } from "@/data/characters";
+import { useState, useEffect } from "react";
+
+interface Character {
+  id: string;
+  name: string;
+  nickname?: string;
+  image: string;
+  description: string;
+}
 
 export default function Home() {
+  const [characters, setCharacters] = useState<Character[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetch('/api/characters')
+      .then(res => res.json())
+      .then(data => {
+        setCharacters(data);
+        setLoading(false);
+      })
+      .catch(error => {
+        console.error('Error loading characters:', error);
+        setLoading(false);
+      });
+  }, []);
+
   const featuredCharacters = characters.slice(0, 3);
 
   return (
@@ -40,45 +66,51 @@ export default function Home() {
           <h2 className="text-3xl font-bold text-light-text text-center mb-12">
             主要角色
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {featuredCharacters.map((character) => (
-              <Link
-                key={character.id}
-                href={`/characters/${character.id}`}
-                className="group bg-white rounded-xl shadow-md hover:shadow-xl transition-all overflow-hidden"
-              >
-                <div className="relative h-64 w-full bg-light-accent">
-                  <Image
-                    src={character.image}
-                    alt={character.name}
-                    fill
-                    className="object-cover group-hover:scale-105 transition-transform duration-300"
-                  />
-                </div>
-                <div className="p-6">
-                  <h3 className="text-xl font-bold text-light-text mb-2">
-                    {character.name}
-                    {character.nickname && (
-                      <span className="text-sm text-light-text/60 ml-2">
-                        ({character.nickname})
-                      </span>
-                    )}
-                  </h3>
-                  <p className="text-light-text/70 line-clamp-2">
-                    {character.description}
-                  </p>
-                </div>
-              </Link>
-            ))}
-          </div>
-          <div className="text-center mt-8">
-            <Link
-              href="/characters"
-              className="text-light-primary hover:underline font-medium"
-            >
-              查看所有角色 →
-            </Link>
-          </div>
+          {loading ? (
+            <div className="text-center text-light-text/70">加载中...</div>
+          ) : (
+            <>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                {featuredCharacters.map((character) => (
+                  <Link
+                    key={character.id}
+                    href={`/characters/${character.id}`}
+                    className="group bg-white rounded-xl shadow-md hover:shadow-xl transition-all overflow-hidden"
+                  >
+                    <div className="relative h-64 w-full bg-light-accent">
+                      <Image
+                        src={character.image}
+                        alt={character.name}
+                        fill
+                        className="object-cover group-hover:scale-105 transition-transform duration-300"
+                      />
+                    </div>
+                    <div className="p-6">
+                      <h3 className="text-xl font-bold text-light-text mb-2">
+                        {character.name}
+                        {character.nickname && (
+                          <span className="text-sm text-light-text/60 ml-2">
+                            ({character.nickname})
+                          </span>
+                        )}
+                      </h3>
+                      <p className="text-light-text/70 line-clamp-2">
+                        {character.description}
+                      </p>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+              <div className="text-center mt-8">
+                <Link
+                  href="/characters"
+                  className="text-light-primary hover:underline font-medium"
+                >
+                  查看所有角色 →
+                </Link>
+              </div>
+            </>
+          )}
         </div>
       </section>
 

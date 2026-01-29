@@ -5,9 +5,10 @@ import { useState, useRef } from 'react';
 interface ImageUploadProps {
   value: string;
   onChange: (path: string) => void;
+  uploadType?: string;
 }
 
-export default function ImageUpload({ value, onChange }: ImageUploadProps) {
+export default function ImageUpload({ value, onChange, uploadType = 'artworks' }: ImageUploadProps) {
   const [uploading, setUploading] = useState(false);
   const [dragActive, setDragActive] = useState(false);
   const [error, setError] = useState('');
@@ -20,6 +21,7 @@ export default function ImageUpload({ value, onChange }: ImageUploadProps) {
     try {
       const formData = new FormData();
       formData.append('file', file);
+      formData.append('type', uploadType);
 
       const response = await fetch('/api/upload', {
         method: 'POST',

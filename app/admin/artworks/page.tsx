@@ -3,8 +3,12 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { characters } from '@/data/characters';
 import ImageUpload from '@/components/ImageUpload';
+
+interface Character {
+  id: string;
+  name: string;
+}
 
 interface Artwork {
   id: string;
@@ -18,6 +22,7 @@ interface Artwork {
 
 export default function ArtworkAdminPage() {
   const [artworks, setArtworks] = useState<Artwork[]>([]);
+  const [characters, setCharacters] = useState<Character[]>([]);
   const [loading, setLoading] = useState(true);
   const [message, setMessage] = useState('');
   const [editingId, setEditingId] = useState<string | null>(null);
@@ -34,6 +39,7 @@ export default function ArtworkAdminPage() {
 
   useEffect(() => {
     loadArtworks();
+    loadCharacters();
   }, []);
 
   const loadArtworks = async () => {
@@ -46,6 +52,16 @@ export default function ArtworkAdminPage() {
       setMessage('加载画作失败');
     } finally {
       setLoading(false);
+    }
+  };
+
+  const loadCharacters = async () => {
+    try {
+      const response = await fetch('/api/characters');
+      const data = await response.json();
+      setCharacters(data);
+    } catch (error) {
+      console.error('Error loading characters:', error);
     }
   };
 

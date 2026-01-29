@@ -1,0 +1,237 @@
+[
+  {
+    "id": "liehewei",
+    "name": "列何卫",
+    "nickname": "箬笠",
+    "faction": "neutral",
+    "image": "/images/characters/列何卫.jpg",
+    "description": "主角，孤儿出身，被养父抚养长大，三年来独自行走江湖历练。",
+    "details": {
+      "age": "十五六岁",
+      "occupation": "",
+      "personality": "避世、内敛，对养父深信不疑",
+      "background": "十二三年前被大叔捡到并抚养长大，三年前大叔离开后开始独自旅行。"
+    },
+    "relatedCharacters": [],
+    "tags": [
+      "主角",
+      "中立"
+    ],
+    "createdDate": "2024-01-01"
+  },
+  {
+    "id": "princess",
+    "name": "艾米尔",
+    "nickname": "公主",
+    "faction": "light",
+    "image": "/images/characters/列何卫.jpg",
+    "description": "光之子的公主，被老臣托付给箬笠，一路与箬笠同行。",
+    "details": {
+      "age": "",
+      "occupation": "公主",
+      "personality": "聪慧、有主见，看不惯箬笠的避世性格",
+      "background": "被老臣托付给箬笠，在旅途中学会独立完成任务。"
+    },
+    "relatedCharacters": [
+      "liehewei"
+    ],
+    "tags": [
+      "光之子",
+      "公主"
+    ],
+    "createdDate": "2024-01-01"
+  },
+  {
+    "id": "baixiao",
+    "name": "白枭",
+    "nickname": "",
+    "faction": "light",
+    "image": "/images/characters/白枭.jpg",
+    "description": "角色简介待补充",
+    "details": {
+      "age": "",
+      "occupation": "",
+      "personality": "",
+      "background": ""
+    },
+    "relatedCharacters": [],
+    "tags": [
+      "光之子"
+    ],
+    "createdDate": "2024-01-01"
+  },
+  {
+    "id": "chenpu",
+    "name": "陈璞",
+    "nickname": "",
+    "faction": "neutral",
+    "image": "/images/characters/陈璞.jpg",
+    "description": "角色简介待补充",
+    "details": {
+      "age": "",
+      "occupation": "",
+      "personality": "",
+      "background": ""
+    },
+    "relatedCharacters": [],
+    "tags": [
+      "中立"
+    ],
+    "createdDate": "2024-01-01"
+  },
+  {
+    "id": "fangzheng",
+    "name": "方峥",
+    "nickname": "",
+    "faction": "neutral",
+    "image": "/images/characters/方峥.jpg",
+    "description": "角色简介待补充",
+    "details": {
+      "age": "",
+      "occupation": "",
+      "personality": "",
+      "background": ""
+    },
+    "relatedCharacters": [],
+    "tags": [
+      "中立"
+    ],
+    "createdDate": "2024-01-01"
+  },
+  {
+    "id": "bainiao",
+    "name": "白鸟",
+    "nickname": "",
+    "faction": "neutral",
+    "image": "/images/characters/Artboard_1__4__2_1769691257377.jpg",
+    "description": "一名热爱耍帅的音乐生",
+    "details": {
+      "age": "",
+      "occupation": "",
+      "personality": "",
+      "background": ""
+    },
+    "relatedCharacters": [],
+    "tags": [],
+    "createdDate": "2026-01-29"
+  },
+  {
+    "id": "liushuxu",
+    "name": "柳书栩",
+    "nickname": "书虫",
+    "faction": "neutral",
+    "image": "/images/characters/Artboard_1__1__4_1769692580039.jpg",
+    "description": "计算机系女大学生，学生会会长",
+    "details": {
+      "age": "",
+      "occupation": "",
+      "personality": "",
+      "background": ""
+    },
+    "relatedCharacters": [],
+    "tags": [],
+    "createdDate": "2026-01-29"
+  },
+  {
+    "id": "lieren",
+    "name": "列仁",
+    "nickname": "列叔",
+    "faction": "light",
+    "image": "/images/characters/Artboard_1__1__4_1769692616400.jpg",
+    "description": "九色鹿族族人，胆小怯懦，收养了列何卫",
+    "details": {
+      "age": "",
+      "occupation": "",
+      "personality": "",
+      "background": ""
+    },
+    "relatedCharacters": [],
+    "tags": [],
+    "createdDate": "2026-01-29"
+  },
+  {
+    "id": "huashengning",
+    "name": "花盛宁",
+    "nickname": "花环",
+    "faction": "neutral",
+    "image": "/images/characters/Artboard_1__1__4_1769692787248.jpg",
+    "description": "外号花豆豆，戏剧系学姐，知性清冷的眯眯眼学姐，和陈璞不对付",
+    "details": {
+      "age": "",
+      "occupation": "",
+      "personality": "",
+      "background": ""
+    },
+    "relatedCharacters": [],
+    "tags": [],
+    "createdDate": "2026-01-29"
+  },
+  {
+    "id": "guanqingdai",
+    "name": "关晴黛",
+    "nickname": "丝带",
+    "faction": "neutral",
+    "image": "/images/characters/Artboard_1__1__4_1769692795298.jpg",
+    "description": "长着一张酷姐脸的萌妹，师范专业的大学生，喜欢做幼教",
+    "details": {
+      "age": "",
+      "occupation": "",
+      "personality": "",
+      "background": ""
+    },
+    "relatedCharacters": [],
+    "tags": [],
+    "createdDate": "2026-01-29"
+  },
+  {
+    "id": "kongzhao",
+    "name": "孔朝",
+    "nickname": "失孤",
+    "faction": "neutral",
+    "image": "/images/characters/Artboard_1__1__4_1769692957645.jpg",
+    "description": "禁阁大学的教授",
+    "details": {
+      "age": "",
+      "occupation": "",
+      "personality": "",
+      "background": ""
+    },
+    "relatedCharacters": [],
+    "tags": [],
+    "createdDate": "2026-01-29"
+  },
+  {
+    "id": "kongyinshi",
+    "name": "孔寅时",
+    "nickname": "疯帽",
+    "faction": "neutral",
+    "image": "/images/characters/Artboard_1__1__4_1769693038367.jpg",
+    "description": "孔家老二",
+    "details": {
+      "age": "",
+      "occupation": "",
+      "personality": "",
+      "background": ""
+    },
+    "relatedCharacters": [],
+    "tags": [],
+    "createdDate": "2026-01-29"
+  },
+  {
+    "id": "kongtingwu",
+    "name": "孔亭午",
+    "nickname": "女巫",
+    "faction": "neutral",
+    "image": "/images/characters/Artboard_1__1__4_1769693094704.jpg",
+    "description": "孔家老大，是姐姐",
+    "details": {
+      "age": "",
+      "occupation": "",
+      "personality": "",
+      "background": ""
+    },
+    "relatedCharacters": [],
+    "tags": [],
+    "createdDate": "2026-01-29"
+  }
+]

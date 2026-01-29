@@ -10,8 +10,12 @@ export async function middleware(request: NextRequest) {
     return NextResponse.next();
   }
 
-  // Allow public GET requests to artworks and scenes API
-  if ((request.nextUrl.pathname === '/api/artworks' || request.nextUrl.pathname === '/api/scenes' || request.nextUrl.pathname === '/api/photos') && request.method === 'GET') {
+  // Allow public GET requests to artworks, scenes, photos, and characters API
+  if ((request.nextUrl.pathname === '/api/artworks' ||
+       request.nextUrl.pathname === '/api/scenes' ||
+       request.nextUrl.pathname === '/api/photos' ||
+       request.nextUrl.pathname === '/api/characters') &&
+      request.method === 'GET') {
     return NextResponse.next();
   }
 
@@ -29,5 +33,5 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/admin/:path*', '/api/artworks/:path*', '/api/scenes/:path*', '/api/photos/:path*', '/api/upload/:path*']
+  matcher: ['/admin/:path*', '/api/artworks/:path*', '/api/scenes/:path*', '/api/photos/:path*', '/api/characters/:path*', '/api/upload/:path*']
 };

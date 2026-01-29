@@ -1,9 +1,41 @@
 import Image from "next/image";
 import Link from "next/link";
-import { characters } from "@/data/characters";
 import { notFound } from "next/navigation";
 
+interface Character {
+  id: string;
+  name: string;
+  nickname?: string;
+  faction: 'light' | 'dark' | 'neutral';
+  image: string;
+  description: string;
+  details: {
+    age?: string;
+    occupation?: string;
+    personality?: string;
+    background?: string;
+    [key: string]: string | undefined;
+  };
+  relatedCharacters?: string[];
+  tags?: string[];
+  createdDate: string;
+}
+
+async function getCharacters(): Promise<Character[]> {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'}/api/characters`, {
+    cache: 'no-store'
+  });
+  if (!res.ok) return [];
+  return res.json();
+}
+
+async function getCharacter(id: string): Promise<Character | null> {
+  const characters = await getCharacters();
+  return characters.find((c) => c.id === id) || null;
+}
+
 export async function generateStaticParams() {
+  const characters = await getCharacters();
   return characters.map((character) => ({
     id: character.id,
   }));
@@ -11,11 +43,19 @@ export async function generateStaticParams() {
 
 export default async function CharacterDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
-  const character = characters.find((c) => c.id === id);
+  const character = await getCharacter(id);
 
   if (!character) {
     notFound();
   }
+
+  const allCharacters = await getCharacters();
+  const relatedCharacters = character.relatedCharacters
+    ? allCharacters.filter(c => character.relatedCharacters?.includes(c.id))
+    : [];
+  const otherCharacters = allCharacters
+    .filter((c) => c.id !== character.id && !character.relatedCharacters?.includes(c.id))
+    .slice(0, 4 - relatedCharacters.length);
 
   const getFactionColor = (faction: string) => {
     switch (faction) {
@@ -127,13 +167,11 @@ export default async function CharacterDetailPage({ params }: { params: Promise<
         </div>
 
         {/* Related Characters */}
-        <div className="mt-12">
-          <h2 className="text-2xl font-bold text-light-text mb-6">其他角色</h2>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {characters
-              .filter((c) => c.id !== character.id)
-              .slice(0, 4)
-              .map((c) => (
+        {relatedCharacters.length > 0 && (
+          <div className="mt-12">
+            <h2 className="text-2xl font-bold text-light-text mb-6">关联角色</h2>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              {relatedCharacters.map((c) => (
                 <Link
                   key={c.id}
                   href={`/characters/${c.id}`}
@@ -152,8 +190,37 @@ export default async function CharacterDetailPage({ params }: { params: Promise<
                   </div>
                 </Link>
               ))}
+            </div>
           </div>
-        </div>
+        )}
+
+        {/* Other Characters */}
+        {otherCharacters.length > 0 && (
+          <div className="mt-12">
+            <h2 className="text-2xl font-bold text-light-text mb-6">其他角色</h2>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              {otherCharacters.map((c) => (
+                <Link
+                  key={c.id}
+                  href={`/characters/${c.id}`}
+                  className="group bg-white rounded-lg shadow-md hover:shadow-xl transition-all overflow-hidden"
+                >
+                  <div className="relative h-32 w-full bg-light-accent">
+                    <Image
+                      src={c.image}
+                      alt={c.name}
+                      fill
+                      className="object-cover group-hover:scale-105 transition-transform duration-300"
+                    />
+                  </div>
+                  <div className="p-3 text-center">
+                    <h3 className="font-bold text-light-text text-sm">{c.name}</h3>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

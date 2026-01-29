@@ -3,7 +3,11 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { characters } from '@/data/characters';
+
+interface Character {
+  id: string;
+  name: string;
+}
 
 interface Scene {
   id: string;
@@ -15,6 +19,7 @@ interface Scene {
 
 export default function SceneAdminPage() {
   const [scenes, setScenes] = useState<Scene[]>([]);
+  const [characters, setCharacters] = useState<Character[]>([]);
   const [loading, setLoading] = useState(true);
   const [message, setMessage] = useState('');
   const [editingId, setEditingId] = useState<string | null>(null);
@@ -29,6 +34,7 @@ export default function SceneAdminPage() {
 
   useEffect(() => {
     loadScenes();
+    loadCharacters();
   }, []);
 
   const loadScenes = async () => {
@@ -41,6 +47,16 @@ export default function SceneAdminPage() {
       setMessage('加载小剧场失败');
     } finally {
       setLoading(false);
+    }
+  };
+
+  const loadCharacters = async () => {
+    try {
+      const response = await fetch('/api/characters');
+      const data = await response.json();
+      setCharacters(data);
+    } catch (error) {
+      console.error('Error loading characters:', error);
     }
   };
 

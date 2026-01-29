@@ -1,8 +1,53 @@
+'use client';
+
 import Link from "next/link";
 import Image from "next/image";
-import { characters } from "@/data/characters";
+import { useState, useEffect } from "react";
+
+interface Character {
+  id: string;
+  name: string;
+  nickname?: string;
+  faction: 'light' | 'dark' | 'neutral';
+  image: string;
+  description: string;
+  details: {
+    age?: string;
+    occupation?: string;
+    personality?: string;
+    background?: string;
+    [key: string]: string | undefined;
+  };
+  relatedCharacters?: string[];
+  tags?: string[];
+  createdDate: string;
+}
 
 export default function CharactersPage() {
+  const [characters, setCharacters] = useState<Character[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetch('/api/characters')
+      .then(res => res.json())
+      .then(data => {
+        setCharacters(data);
+        setLoading(false);
+      })
+      .catch(error => {
+        console.error('Error loading characters:', error);
+        setLoading(false);
+      });
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen py-12 px-4 flex items-center justify-center">
+        <div className="text-light-text">加载中...</div>
+      </div>
+    );
+  }
+
   const lightCharacters = characters.filter(c => c.faction === 'light');
   const darkCharacters = characters.filter(c => c.faction === 'dark');
   const neutralCharacters = characters.filter(c => c.faction === 'neutral');
