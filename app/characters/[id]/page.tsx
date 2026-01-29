@@ -1,6 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import fs from 'fs';
+import path from 'path';
 
 interface Character {
   id: string;
@@ -21,21 +23,19 @@ interface Character {
   createdDate: string;
 }
 
-async function getCharacters(): Promise<Character[]> {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'}/api/characters`, {
-    cache: 'no-store'
-  });
-  if (!res.ok) return [];
-  return res.json();
+function getCharacters(): Character[] {
+  const configPath = path.join(process.cwd(), 'config', 'characters.config.json');
+  const data = fs.readFileSync(configPath, 'utf-8');
+  return JSON.parse(data);
 }
 
-async function getCharacter(id: string): Promise<Character | null> {
-  const characters = await getCharacters();
+function getCharacter(id: string): Character | null {
+  const characters = getCharacters();
   return characters.find((c) => c.id === id) || null;
 }
 
-export async function generateStaticParams() {
-  const characters = await getCharacters();
+export function generateStaticParams() {
+  const characters = getCharacters();
   return characters.map((character) => ({
     id: character.id,
   }));
@@ -43,13 +43,13 @@ export async function generateStaticParams() {
 
 export default async function CharacterDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
-  const character = await getCharacter(id);
+  const character = getCharacter(id);
 
   if (!character) {
     notFound();
   }
 
-  const allCharacters = await getCharacters();
+  const allCharacters = getCharacters();
   const relatedCharacters = character.relatedCharacters
     ? allCharacters.filter(c => character.relatedCharacters?.includes(c.id))
     : [];
