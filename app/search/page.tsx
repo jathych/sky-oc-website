@@ -3,13 +3,35 @@
 import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
-import { characters } from '@/data/characters';
 import { scenesMetadata as stories } from '@/data/stories.metadata';
-import { Suspense } from 'react';
+import { Suspense, useState, useEffect } from 'react';
+
+interface Character {
+  id: string;
+  name: string;
+  nickname?: string;
+  image: string;
+  description: string;
+}
 
 function SearchResults() {
   const searchParams = useSearchParams();
   const query = searchParams.get('q') || '';
+  const [characters, setCharacters] = useState<Character[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetch('/api/characters')
+      .then(res => res.json())
+      .then(data => {
+        setCharacters(data);
+        setLoading(false);
+      })
+      .catch(error => {
+        console.error('Error loading characters:', error);
+        setLoading(false);
+      });
+  }, []);
 
   // Search logic
   const searchCharacters = characters.filter(c =>
@@ -32,6 +54,14 @@ function SearchResults() {
     return (
       <div className="text-center py-12">
         <p className="text-light-text/60">请输入搜索关键词</p>
+      </div>
+    );
+  }
+
+  if (loading) {
+    return (
+      <div className="text-center py-12">
+        <p className="text-light-text/60">搜索中...</p>
       </div>
     );
   }

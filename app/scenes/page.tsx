@@ -1,7 +1,11 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { characters } from '@/data/characters';
+
+interface Character {
+  id: string;
+  name: string;
+}
 
 interface Scene {
   id: string;
@@ -13,23 +17,30 @@ interface Scene {
 
 export default function ScenesPage() {
   const [scenes, setScenes] = useState<Scene[]>([]);
+  const [characters, setCharacters] = useState<Character[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    loadScenes();
+    loadData();
   }, []);
 
-  const loadScenes = async () => {
+  const loadData = async () => {
     try {
-      const response = await fetch('/api/scenes');
-      const data = await response.json();
+      const [scenesRes, charsRes] = await Promise.all([
+        fetch('/api/scenes'),
+        fetch('/api/characters')
+      ]);
+      const scenesData = await scenesRes.json();
+      const charsData = await charsRes.json();
+
       // Sort by date descending (newest first)
-      const sorted = data.sort((a: Scene, b: Scene) =>
+      const sorted = scenesData.sort((a: Scene, b: Scene) =>
         new Date(b.createdDate).getTime() - new Date(a.createdDate).getTime()
       );
       setScenes(sorted);
+      setCharacters(charsData);
     } catch (error) {
-      console.error('Error loading scenes:', error);
+      console.error('Error loading data:', error);
     } finally {
       setLoading(false);
     }
