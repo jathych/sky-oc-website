@@ -1,3 +1,31 @@
+# OC World Website (Next.js Full-Stack Application)
+
+A full-stack web application built with Next.js for managing and displaying original characters (OC), stories, and artworks.
+
+## 🚀 Key Features
+
+- Full-stack architecture (Next.js + API routes)  
+- Authentication system (session + protected admin panel)  
+- Content management system (artworks & stories)  
+- File upload and data handling  
+- Responsive UI with dynamic theming  
+
+## 🛠️ Tech Stack
+
+- Next.js, React, TypeScript  
+- Tailwind CSS  
+- API Routes  
+- File handling & authentication  
+
+---
+## 📖 About This Project
+
+This project also serves as a creative platform for original storytelling set in the *Sky: Children of the Light* universe.
+
+👇 Scroll down to see the full world-building documentation and content structure (which is in Chinese).
+
+———————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
+
 # 光遇世界 OC 网站
 
 一个基于 Next.js 构建的原创角色（OC）展示网站，用于展示《光·遇》同人世界观下的原创故事、角色和画作。
